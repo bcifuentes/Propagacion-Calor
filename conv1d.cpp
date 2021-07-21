@@ -6,19 +6,24 @@ typedef std::vector<double> data_t;
 
 void initial_conditions(data_t & u,int N);
 void boudary_conditions(data_t & u,int N,double t);
-void evolve(data_t & u,double a,int N,double t,double dt,double dx);
+void evolve(data_t & u,int N,double t);
 
-int main(int argc,char ** argv){
+double a=8.69e-5;
+double h=14.4;
+double k=209.3;
+double L= 0.109;
+double l=0.012;
+double T= 60*5;
+double e= 0.003;
+double m= std::sqrt(h*(2*(l+e))/(k*l*e));
+double dt=0.1;
+double dx=4.36e-3;
 
-  double dt=0.001;
-  double dx=0.1;
-  double L= 5;
-  double T= 15;
-  
+
+int main(int argc,char ** argv){  
   int Nx= L/dx;
   int Nt= T/dt;
   
-  double a=1;
 
   data_t u(Nx);
 
@@ -33,7 +38,7 @@ int main(int argc,char ** argv){
     }
     std::cout<<"\n";
     double t=tt*dt;
-    evolve(u,a,Nx,t,dt,dx);
+    evolve(u,Nx,t);
   }
     
   return 0;
@@ -41,16 +46,18 @@ int main(int argc,char ** argv){
 
 void initial_conditions(data_t & u,int N){
   for(int ii=0;ii<N;++ii){
-    u[ii]=0;
+    u[ii]=5;
   }
 }
 void boudary_conditions(data_t & u,int N,double t){
-  u[0]=20*std::cos(10*t+M_PI*0.5);
-  u[N-1]=u[N-2];
+  //u[0]=15*std::cos(5*t)-5;
+  u[0]=-10;
+  u[N-1]=u[N-2]*(1-dx*h/k);
 }
-void evolve(data_t & u,double a,int N,double t,double dt,double dx){
-  for(int ii=1;ii<N-1;ii++){
-    u[ii]=dt*a/(dx*dx)*(u[ii+1]-2*u[ii]+u[ii-1])+u[ii];
+void evolve(data_t & u,int N,double t){
+
+  for(int ii=1;ii<N;ii++){
+    u[ii]=dt*a/(dx*dx)*(u[ii+1]-2*u[ii]+u[ii-1])+u[ii]*(1-a*dt*m*m);
   }
   boudary_conditions(u,N,t);
 }

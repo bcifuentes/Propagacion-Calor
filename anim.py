@@ -15,16 +15,27 @@ for line in fhand:
 
 
 fig, ax= plt.subplots(facecolor="white")
-plt.title("Ecuación de difusión con fuente 20cos(t)",color='black',size=16)
-plt.ylim(-22,22)
+plt.title("Ecuación de difusión con fuente 20cos(10t+pi/2)",color='black',size=16)
+plt.ylim(-15,10)
 plt.grid()
 plt.xlabel('Distancia (x)')  
 plt.ylabel('Temperatura (T)')
 
-x=np.arange(0,5,0.1)
+x=np.arange(0,0.109,4.36e-3)
 line, = ax.plot(x, data[0],color='black',marker='.',linestyle='solid',
                 linewidth=1,markersize=5,markeredgecolor='black')
+h=14.4
+k=209.3
+L= 0.109
+l=0.012
+e=0.003
+m= np.sqrt(h*(2*(l+e))/(k*l*e))
 
+A=-10*np.exp(m*L)*(1+h/(m*k))/(2*(h/(m*k)*np.sinh(m*L)+np.cosh(m*L)))
+B=-10-A
+
+line2, = ax.plot(x, A*np.exp(-m*x)+B*np.exp(m*x),color='red',marker='.',linestyle='solid',
+                linewidth=1,markersize=5,markeredgecolor='red')
 def animate(i):
     line.set_ydata(data[(i)%len(data)])
     #print(tiempos)
@@ -40,7 +51,7 @@ def animate(i):
 
 def iniciar():
     global ani
-    ani = animation.FuncAnimation(fig,animate,interval=5,blit=True,save_count=10)
+    ani = animation.FuncAnimation(fig,animate,interval=1,blit=True,save_count=10)
     
     canvas.draw()
 
