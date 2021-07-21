@@ -1,0 +1,11 @@
+El formato para la salida de IDE debe ser
+
+tiempo temperatura1 temperatura2 temperatura3
+
+ej
+
+0.1 14 13 10
+
+Serian 14 grados en el primer sensor, 13 en el segundo, 10 en el primero, en t=0.1 s
+
+Esto para que lo lea el script de python
