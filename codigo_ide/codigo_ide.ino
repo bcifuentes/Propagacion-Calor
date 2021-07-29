@@ -4,7 +4,7 @@ unsigned long current = 0;
 unsigned long previous = 0; 
 int rr = 0;
 int Nt = 100;
-float tiempos[Nt];
+float tiempos[100];
 
 int v1 =0;
 int v2 =0;
@@ -28,14 +28,15 @@ void timediff() {
 }
 
 void loop() {
-  double V0==50;
+  double Vo=50;
+  double V;
   unsigned long t=millis();
   if(digitalRead(4)==HIGH){
-      V=V0*sin(10*t);
+      V=Vo*sin(10*t);
       analogWrite(3, V);
     }
   else{
-      analogWrite(3,V0);
+      analogWrite(3,Vo);
     }
   
   v1=analogRead(A0);
