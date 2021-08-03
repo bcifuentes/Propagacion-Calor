@@ -2,7 +2,9 @@
 double Vo= 125;
 double t=0;
 double V;
+//frecuencia
 double w=5;
+//desfase
 double p=1.5;
 void setup() {
   pinMode(3,OUTPUT);
