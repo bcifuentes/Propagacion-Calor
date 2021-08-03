@@ -15,7 +15,7 @@ for line in fhand:
 
 
 fig, ax= plt.subplots(facecolor="white")
-plt.title("Ecuación de difusión con fuente 20cos(10t+pi/2)",color='black',size=16)
+plt.title("Ecuación de difusión con fuente constante",color='black',size=16)
 plt.ylim(-15,10)
 plt.grid()
 plt.xlabel('Distancia (x)')  
